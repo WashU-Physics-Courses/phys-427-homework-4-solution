@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Yg33y6UU)
 # Physics 427 Homework 4
 
 __Due 11:59pm Monday 9/25/2023__
@@ -102,7 +101,7 @@ $$
 
 You can think of this rescaled error as a ratio between the estimated error and the target error computed using our tolerance. If `err > 1` then the estimated error is larger than our target, so we reject the step and run again with a smaller step size. Otherwise, accept the step, and increase the step size.
 
-Commit your changes to `rk4_adaptive.h` to the repository. Use it to solve problem 2 again and produce a plot `problem3.png`. In this plot, draw a vertical dashed line at every output point $x$. This should give you an idea when the method takes larger steps and when it takes small steps.
+Commit your changes to `rk4_adaptive.h` to the repository. Use it to solve problem 2 again and produce a plot `problem3.png`.
 
 ## 4. (Optional, no extra credit) Dormand-Prince RK45 Adaptive Method
 

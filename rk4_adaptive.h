@@ -76,6 +76,8 @@ public:
     for (int i = 0; i < n_eq; i++) {
       y_err[i] = std::abs(y1[i] - y2[i]);
     }
+
+    return y2;
   }
 
   // TODO: You might want to copy your rk4 "step" function here, call it

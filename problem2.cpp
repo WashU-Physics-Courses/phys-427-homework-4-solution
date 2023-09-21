@@ -1,6 +1,7 @@
 #include "euler.h"
 #include "rk4.h"
-// #include "rk4_adaptive.h"
+#include "rk4_adaptive.h"
+#include "rk45_dormand_prince.h"
 #include <cmath>
 #include <fstream>
 
@@ -16,18 +17,26 @@ int main() {
 
   euler_method euler;
   runge_kutta_4 rk(2);
-  // rk4_adaptive rka(2, 1e-12, 1e-12);
+  rk4_adaptive rka(2, 1e-12, 1e-12);
+  rk45_dormand_prince rkdp(2, 1e-12, 1e-12);
   double h = 0.01;
   double th0 = 179.0 / 180.0 * M_PI;
   auto y = rk.integrate(dydx, stop, h, 0.0, {th0, 0.0});
-  // y = rka.integrate(dydx, stop, h, 0.0, {th0, 0.0});
+  y = rka.integrate(dydx, stop, h, 0.0, {th0, 0.0});
   y = euler.integrate(dydx, stop, h, 0.0, {th0, 0.0});
+  y = rkdp.integrate(dydx, stop, h, 0.0, {th0, 0.0});
 
-  // std::ofstream output_file("output-rka.csv");
-  // for (int i = 0; i < rka.xs.size(); i++) {
-  //   output_file << rka.xs[i] << "," << rka.result[i][0] << std::endl;
-  // }
-  // output_file.close();
+  std::ofstream output_file("output-rka.csv");
+  for (int i = 0; i < rka.xs.size(); i++) {
+    output_file << rka.xs[i] << "," << rka.result[i][0] << std::endl;
+  }
+  output_file.close();
+
+  std::ofstream output_rkdp("output-rkdp.csv");
+  for (int i = 0; i < rkdp.xs.size(); i++) {
+    output_rkdp << rkdp.xs[i] << "," << rkdp.result[i][0] << std::endl;
+  }
+  output_rkdp.close();
 
   std::ofstream output_rk("output-rk.csv");
   for (int i = 0; i < rk.xs.size(); i++) {
