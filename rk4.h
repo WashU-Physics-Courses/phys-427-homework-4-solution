@@ -41,6 +41,29 @@ public:
 
     // TODO: Finish this implementation, refer to the euler.h if you are
     // unsure where to start.
+    std::vector<double> y_next = y;
+    k1 = f(x, y);
+
+    for (int i = 0; i < n_eq; i++) {
+      y_tmp[i] = y[i] + 0.5 * h * k1[i];
+    }
+    k2 = f(x + 0.5 * h, y_tmp);
+
+    for (int i = 0; i < n_eq; i++) {
+      y_tmp[i] = y[i] + 0.5 * h * k2[i];
+    }
+    k3 = f(x + 0.5 * h, y_tmp);
+
+    for (int i = 0; i < n_eq; i++) {
+      y_tmp[i] = y[i] + h * k3[i];
+    }
+    k4 = f(x + h, y_tmp);
+
+    for (int i = 0; i < n_eq; i++) {
+      y_next[i] += h / 6.0 * (k1[i] + 2.0 * k2[i] + 2.0 * k3[i] + k4[i]);
+    }
+
+    return y_next;
   }
 
   int n_eq;
