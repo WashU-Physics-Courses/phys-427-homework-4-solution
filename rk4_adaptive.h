@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 class rk4_adaptive {
 public:
@@ -51,17 +51,20 @@ public:
       // Adjust h as needed
 
       // TODO: implement this part where we adjust h. Increase h if err is small
-      // and decrease it when err is large. Do not let h go below hmin or above hmax
+      // and decrease it when err is large. Do not let h go below hmin or above
+      // hmax
       h = std::max(hmin, 0.9 * h * std::pow(err, -0.2));
       h = std::min(hmax, h);
 
-      // std::cout << "x = " << x << ", h = " << h << ", err = " << err << std::endl;
+      // std::cout << "x = " << x << ", h = " << h << ", err = " << err <<
+      // std::endl;
     }
     return y;
   }
 
   template <typename F>
-  std::vector<double> step(const F& f, double h, double x, const std::vector<double> &y) {
+  std::vector<double> step(const F &f, double h, double x,
+                           const std::vector<double> &y) {
     // Compute the next step in y, given x and y of the current step
 
     // TODO: Compute two estimates for the next y, one with step size h, the
@@ -83,7 +86,8 @@ public:
   // TODO: You might want to copy your rk4 "step" function here, call it
   // step_rk4, so that you can reuse it to compute y1 and y2
   template <typename F>
-  std::vector<double> step_rk4(const F& f, double h, double x, const std::vector<double> &y) {
+  std::vector<double> step_rk4(const F &f, double h, double x,
+                               const std::vector<double> &y) {
     // Compute the next step in y, given x and y of the current step
 
     // TODO: Finish this implementation, refer to the euler.h if you are
@@ -113,13 +117,11 @@ public:
     return y_next;
   }
 
-
   double error(const std::vector<double> &y) {
     // TODO: compute a scalar error from the error estimate y_err and return it.
     double err = 0.0;
     for (int i = 0; i < n_eq; i++) {
-      double scale =
-          atol + std::max(std::abs(y[i]), std::abs(y[i])) * rtol;
+      double scale = atol + std::abs(y[i]) * rtol;
       err += std::pow(y_err[i] / scale, 2);
     }
     return std::sqrt(err / n_eq);
